@@ -36,3 +36,26 @@ Normalization: This structure avoids duplicate data. You only store the category
 Better Reporting: With a structured relationship between products, categories, and subcategories, you can generate specific reports (e.g., sales by category or subcategory, inventory levels).
 Automation: With separate objects, you can automate actions more effectively (e.g., applying category-wide discounts).
 This model ensures that your data is structured efficiently for both current use and future scalability.
+
+How to establish relationships between objects?
+
+1. Category ↔ Subcategory (Master-Detail Relationship)
+Relationship Type: Master-Detail.
+Why Master-Detail?:
+In this case, Subcategory is always dependent on Category. If you delete a Category, the related Subcategories should also be deleted. Additionally, you can create roll-up summary fields on the Category object to summarize data from Subcategories, such as the number of subcategories or products within each category.
+
+How to Establish:
+In the Subcategory object, create a Master-Detail Relationship field pointing to the Category object.
+This links each subcategory to a category and ensures they are treated as dependent records.
+
+2. Subcategory ↔ Product (Lookup or Master-Detail Relationship)
+Relationship Type: Lookup Relationship or Master-Detail.
+Why Lookup?:
+If you want the Product to be loosely associated with Subcategory, use a Lookup Relationship. This allows Products to exist independently and only be linked to a Subcategory if necessary.
+Why Master-Detail?: 
+If you want to tightly link Products to a Subcategory (e.g., deleting a Subcategory would also delete related products), use a Master-Detail Relationship. This could also be useful if you want to perform roll-up calculations (e.g., total products per subcategory).
+How to Establish:
+In the Product object, create either a Lookup or Master-Detail Relationship field pointing to the Subcategory object.
+
+3. Category ↔ Product (Indirect through Subcategory or Optional Lookup)
+You don’t necessarily need a direct relationship between Category and Product since Category and Subcategory are already linked. However, if you want to allow products to be directly linked to categories (without needing a subcategory), you can establish a Lookup Relationship.
