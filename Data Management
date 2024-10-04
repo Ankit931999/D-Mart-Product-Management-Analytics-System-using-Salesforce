@@ -27,10 +27,29 @@ Data Validation: Implement validation rules to ensure data integrity (e.g., Pric
    Code- Discounted_Price__c >= Price__c
    Error Message: "Discounted Price must be less than the Regular Price."
    Applies To: Product object.
+
 5. Validate Stock Quantity is Non-Negative
-  Objective: Ensure that the Quantity of products in stock cannot be negative.
-  Code- Quantity__c < 0
-  Error Message: "Quantity cannot be negative."
-  Applies To: Product object
-6. 
+   Objective: Ensure that the Quantity of products in stock cannot be negative.
+   Code- Quantity__c < 0
+   Error Message: "Quantity cannot be negative."
+   Applies To: Product object
+
+6. Ensure Unique Product Names
+   Objective: Ensure that Product Names are unique, preventing duplicate entries.
+   Approach: Since validation rules cannot enforce uniqueness directly, use duplicate rules in conjunction with matching rules:
+   Matching Rule: Match Product Names.
+   Duplicate Rule: Prevent or warn users when a duplicate product is created.
+
+7. Ensure Proper Format for Bread Crumbs
+   Objective: Ensure that the Bread Crumbs field follows a specific format (e.g., "Home > Electronics > Mobile Phones").
+   Code- NOT(REGEX(Bread_crumbs__c, "^[A-Za-z0-9 ]+( > [A-Za-z0-9 ]+)*$"))
+   Error Message: "Bread crumbs must follow the format: 'Home > Category > Subcategory'."
+   Applies To: Product object.
+
+8. Ensure Category Has Products
+   Objective: Ensure that categories have at least one product linked. This could be handled via a roll-up summary field on the Category object and a validation rule:
+   Code- Product_Count__c = 0
+   Error Message: "Category must have at least one product associated."
+   Applies To: Category object.
+
 Automation: Use Flow Builder or Process Builder to automate tasks such as updating Discounted Price based on predefined rules (e.g., automatic price updates on certain conditions).
