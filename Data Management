@@ -1,6 +1,36 @@
- Data Management
+Data Management
 Data Import: Use Data Import Wizard or Data Loader to load the D-mart dataset into your Salesforce org.
 (Note- While using the data import wizard do keep in the mind that mapping of data takes place and the Excel file is edited and all the other values like null, duplicate etc are removed)
+
 Data Validation: Implement validation rules to ensure data integrity (e.g., Price > 0, Quantity >= 0).
 
+1. Ensure Each Product Has a Subcategory
+   Objective: Ensure that no product is created without being associated with a valid Subcategory.
+   code- ISBLANK(Subcategory__c)
+   Error Message: "Every product must be associated with a Subcategory."
+   Applies To: Product object
+
+2. Ensure Sub-category Is Linked to a Category
+   Objective: Ensure that every Subcategory is associated with a valid Category.
+   Code- ISBLANK(Category__c)
+   Error Message: "Each Subcategory must be linked to a Category."
+   Applies To: Subcategory object.
+
+3. Ensure Price Is Greater Than Zero
+   Objective: Ensure that the Price field for products cannot be zero or negative.
+   Code- Price__c <= 0
+   Error Message: "Price must be greater than zero."
+   Applies To: Product object.
+
+4. Ensure Discounted Price Is Less Than Regular Price
+   Objective: Validate that the Discounted Price of a product is always lower than the Regular Price.
+   Code- Discounted_Price__c >= Price__c
+   Error Message: "Discounted Price must be less than the Regular Price."
+   Applies To: Product object.
+5. Validate Stock Quantity is Non-Negative
+  Objective: Ensure that the Quantity of products in stock cannot be negative.
+  Code- Quantity__c < 0
+  Error Message: "Quantity cannot be negative."
+  Applies To: Product object
+6. 
 Automation: Use Flow Builder or Process Builder to automate tasks such as updating Discounted Price based on predefined rules (e.g., automatic price updates on certain conditions).
