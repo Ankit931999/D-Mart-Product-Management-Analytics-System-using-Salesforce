@@ -1,0 +1,38 @@
+Data Model Design (Schema Builder)
+Custom Objects: Create custom objects such as Product, Category, and Subcategory.
+Product Object
+
+The Product object will be the primary custom object since most of your dataset's fields describe individual products. This object will contain:
+Name (Product Name): The name of the product.
+Brand: The brand of the product.
+Price: The original price of the product.
+Discounted Price: The price after applying any discounts.
+Quantity: The available quantity of the product in stock.
+Description: A detailed description of the product.
+Bread crumbs: This can be useful for tracking the navigation path or categorization structure for e-commerce purposes. It could be a multi-picklist field or text, depending on your need.
+
+Category Object
+The Category object represents the broad category that the products belong to (e.g., Electronics, Clothing, Groceries). Fields in the Category object would include:
+Category Name: The name of the product category (e.g., Electronics, Furniture).
+Description: A description of the category (optional).
+You will create a relationship between Product and Category, most likely a lookup relationship or a master-detail relationship if you want more control over how data is cascaded (e.g., deleting a category deletes all related products).
+
+Subcategory Object
+The Subcategory object would represent more granular subcategories within a Category (e.g., under Electronics, you may have Mobile Phones, Laptops). Fields here would include:
+Subcategory Name: The name of the subcategory (e.g., Mobile Phones, Laptops).
+Description: A description of the subcategory (optional).
+A relationship should exist between Category and Subcategory, and between Subcategory and Product. The most common approach would be to:
+Create a master-detail relationship between Category and Subcategory to keep the subcategories tightly linked to categories.
+Create a lookup relationship between Subcategory and Product, allowing each product to belong to a specific subcategory.
+
+Example Relationships
+Product ↔ Category: Lookup or Master-Detail relationship to associate products with a category.
+Product ↔ Subcategory: Lookup relationship to associate products with a subcategory.
+Subcategory ↔ Category: Master-Detail relationship to tie subcategories to categories.
+
+Why This Structure?
+Scalability: By keeping categories and subcategories as separate objects, it's easier to manage large datasets and future growth (e.g., adding more categories or subcategories).
+Normalization: This structure avoids duplicate data. You only store the category and subcategory information once, and each product simply references it.
+Better Reporting: With a structured relationship between products, categories, and subcategories, you can generate specific reports (e.g., sales by category or subcategory, inventory levels).
+Automation: With separate objects, you can automate actions more effectively (e.g., applying category-wide discounts).
+This model ensures that your data is structured efficiently for both current use and future scalability.
