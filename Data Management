@@ -5,48 +5,56 @@ Data Import: Use Data Import Wizard or Data Loader to load the D-mart dataset in
 Data Validation: Implement validation rules to ensure data integrity (e.g., Price > 0, Quantity >= 0).
 
 1. Ensure Each Product Has a Subcategory
+   Validation Rule Name: Require_Subcategory_for_Product
    Objective: Ensure that no product is created without being associated with a valid Subcategory.
    code- ISBLANK(Subcategory__c)
    Error Message: "Every product must be associated with a Subcategory."
    Applies To: Product object
 
 2. Ensure Sub-category Is Linked to a Category
+   Validation Rule Name: Require_Category_for_Subcategory
    Objective: Ensure that every Subcategory is associated with a valid Category.
    Code- ISBLANK(Category__c)
    Error Message: "Each Subcategory must be linked to a Category."
    Applies To: Subcategory object.
 
 3. Ensure Price Is Greater Than Zero
+   Validation Rule Name: Product_Price_Greater_Than_Zero
    Objective: Ensure that the Price field for products cannot be zero or negative.
    Code- Price__c <= 0
    Error Message: "Price must be greater than zero."
    Applies To: Product object.
 
 4. Ensure Discounted Price Is Less Than Regular Price
+   Validation Rule Name: Discounted_Price_Less_Than_Regular_Price
    Objective: Validate that the Discounted Price of a product is always lower than the Regular Price.
    Code- Discounted_Price__c >= Price__c
    Error Message: "Discounted Price must be less than the Regular Price."
    Applies To: Product object.
 
 5. Validate Stock Quantity is Non-Negative
+   Validation Rule Name: Non_Negative_Stock_Quantity
    Objective: Ensure that the Quantity of products in stock cannot be negative.
    Code- Quantity__c < 0
    Error Message: "Quantity cannot be negative."
    Applies To: Product object
 
 6. Ensure Unique Product Names
+   Validation Rule Name: This would be handled via a duplicate rule rather than a validation rule, so no specific validation rule name is needed here.
    Objective: Ensure that Product Names are unique, preventing duplicate entries.
    Approach: Since validation rules cannot enforce uniqueness directly, use duplicate rules in conjunction with matching rules:
    Matching Rule: Match Product Names.
    Duplicate Rule: Prevent or warn users when a duplicate product is created.
 
 7. Ensure Proper Format for Bread Crumbs
+   Validation Rule Name: Validate_Bread_Crumbs_Format
    Objective: Ensure that the Bread Crumbs field follows a specific format (e.g., "Home > Electronics > Mobile Phones").
    Code- NOT(REGEX(Bread_crumbs__c, "^[A-Za-z0-9 ]+( > [A-Za-z0-9 ]+)*$"))
    Error Message: "Bread crumbs must follow the format: 'Home > Category > Subcategory'."
    Applies To: Product object.
 
 8. Ensure Category Has Products
+   Validation Rule Name: Category_Requires_At_Least_One_Product
    Objective: Ensure that categories have at least one product linked. This could be handled via a roll-up summary field on the Category object and a validation rule:
    Code- Product_Count__c = 0
    Error Message: "Category must have at least one product associated."
