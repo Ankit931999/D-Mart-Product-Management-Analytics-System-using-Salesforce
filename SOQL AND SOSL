@@ -1,0 +1,61 @@
+1. Basic SOQL Queries
+1.1 Select All Records From an Object
+SELECT Id, Name FROM Account
+Explanation: Fetches the Id and Name of all Account records.
+
+1.2 Select Records With a Filter
+SELECT Id, Name FROM Account WHERE Industry = 'Technology'
+Explanation: Fetches all accounts in the Technology industry.
+
+1.3 Use LIMIT to Fetch a Fixed Number of Records
+SELECT Id, Name FROM Contact LIMIT 10
+Explanation: Fetches the first 10 Contact records.
+
+2. Intermediate SOQL Queries
+2.1 Sorting Results
+SELECT Id, Name, AnnualRevenue FROM Account WHERE Industry = 'Technology' ORDER BY AnnualRevenue DESC
+Explanation: Fetches accounts in the Technology industry and sorts them by AnnualRevenue in descending order.
+
+2.2 Querying Related Objects (Parent-to-Child)
+SELECT Name, (SELECT LastName FROM Contacts) FROM Account
+Explanation: Fetches Account names along with the last names of their related Contacts.
+
+2.3 Querying Related Objects (Child-to-Parent)
+SELECT FirstName, LastName, Account.Name FROM Contact
+Explanation: Fetches Contact first and last names, and their related Account names.
+
+2.4 Using Aggregate Functions
+SELECT COUNT(Id), SUM(AnnualRevenue) FROM Account WHERE Industry = 'Technology'
+Explanation: Fetches the total number of Account records and the sum of their AnnualRevenue where the industry is Technology.
+
+2.5 Using GROUP BY
+SELECT Industry, COUNT(Id) FROM Account GROUP BY Industry
+Explanation: Groups accounts by Industry and counts the number of accounts in each industry.
+
+2.6 Using WHERE with LIKE
+SELECT Id, Name FROM Account WHERE Name LIKE 'Tech%'
+Explanation: Fetches accounts where the name starts with "Tech."
+
+3. Advanced SOQL Queries
+3.1 Using Date Functions
+SELECT Id, Name FROM Opportunity WHERE CloseDate = LAST_N_DAYS:30
+Explanation: Fetches opportunities that have closed in the last 30 days.
+
+3.2 Semi-Joins
+SELECT Id, Name FROM Account WHERE Id IN (SELECT AccountId FROM Opportunity WHERE StageName = 'Closed Won')
+Explanation: Fetches all accounts that have at least one opportunity with a stage of Closed Won
+
+3.3 Anti-Joins
+SELECT Id, Name FROM Account WHERE Id NOT IN (SELECT AccountId FROM Opportunity)
+Explanation: Fetches all accounts that do not have any related opportunities.
+
+3.4 Using Relationship Queries with Multiple Levels
+SELECT Name, Account.Name, Account.Owner.Name FROM Contact
+Explanation: Fetches Contact names, their parent Account names, and the owner of the accounts.
+
+3.5 Using OFFSET for Pagination
+SELECT Id, Name FROM Contact ORDER BY Name LIMIT 10 OFFSET 20
+Explanation: Fetches 10 Contact records starting from the 21st record (used for pagination).
+
+
+
