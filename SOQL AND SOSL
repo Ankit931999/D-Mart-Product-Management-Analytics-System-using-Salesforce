@@ -57,5 +57,33 @@ Explanation: Fetches Contact names, their parent Account names, and the owner of
 SELECT Id, Name FROM Contact ORDER BY Name LIMIT 10 OFFSET 20
 Explanation: Fetches 10 Contact records starting from the 21st record (used for pagination).
 
+1. Basic SOSL Queries
+1.1 Simple SOSL Search
+FIND 'Acme' IN ALL FIELDS RETURNING Account(Id, Name), Contact(Id, FirstName, LastName)
+
+1.2 Using Wildcards in SOSL
+FIND 'Acme*' IN ALL FIELDS RETURNING Account(Id, Name)
+
+2. Intermediate SOSL Queries
+2.1 Filtering Specific Fields in SOSL
+FIND 'Acme' IN NAME FIELDS RETURNING Account(Id, Name)
+Explanation: Searches only in the Name field of accounts.
+
+2.2 Searching with Multiple Search Terms
+FIND 'Acme OR Global' IN ALL FIELDS RETURNING Account(Id, Name), Contact(Id, FirstName, LastName)
+Explanation: Searches for records containing Acme or Global across multiple objects.
+
+
+3. Advanced SOSL Queries
+3.1 SOSL with Division Filters
+FIND 'Acme' IN ALL DIVISIONS RETURNING Account(Id, Name)
+
+3.2 SOSL with Date Filtering
+FIND 'Acme' IN ALL FIELDS RETURNING Opportunity(Id, Name WHERE CloseDate > LAST_N_DAYS:30)
+
+3.3 SOSL with Search Grouping
+FIND 'Acme AND (Technology OR Consulting)' IN ALL FIELDS RETURNING Account(Id, Name)
+
+
 
 
