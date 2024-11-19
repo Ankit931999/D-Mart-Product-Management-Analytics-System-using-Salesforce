@@ -1,1 +1,27 @@
+Cleaning the D-Mart Excel file before importing it into Salesforce will ensure data quality and consistency. Here are some parameters you should focus on for optimal data cleaning:
 
+1. Standardize Field Values
+Category and Subcategory: Ensure consistent naming (e.g., “Electronics” vs. “electronics”). Use the same capitalization, spelling, and terminology.
+Brand: Standardize brand names to avoid duplicates (e.g., “Samsung” vs. “Samsung Inc.”).
+Currency: For fields like Price and Discounted Price, ensure values are in the same currency and format (e.g., "$100.00").
+
+2. Remove Duplicates
+Identify and remove duplicate entries based on unique fields like Name, Brand, and Category to avoid redundancy.
+
+3. Validate Data Types
+Price and Discounted Price: Ensure they contain only numeric values and are formatted consistently (e.g., no extra symbols or spaces).
+Quantity: Make sure this is a positive integer, and replace or correct any negative or non-numeric values.
+
+4. Handle Missing or Null Values
+Subcategory: If any products are missing subcategories, either assign a default value or leave it blank if the subcategory is truly unknown.
+Bread Crumbs and Description: If null, consider adding placeholders, or omit if not critical for initial upload.
+5. Check for Logical Consistency
+Discounted Price vs. Price: Verify that Discounted Price is always lower than Price.
+Quantity: Ensure quantities are accurate (e.g., "Out of Stock" items should have a quantity of zero).
+6. Remove Special Characters and Whitespace
+Clean up any unnecessary punctuation, symbols, or extra spaces in Name, Descriptions, and Brand fields.
+7. Trim Long Text Fields
+Fields like Descriptions should be limited to Salesforce’s character limit for text fields, so trim excessive length if needed.
+8. Normalize Date Formats (If Applicable)
+If any dates are used (e.g., Creation Date), ensure they are in a consistent format (e.g., MM/DD/YYYY).
+These steps will ensure the D-Mart dataset is standardized, complete, and consistent before being imported into Salesforce, reducing the risk of data errors and improving usability.
